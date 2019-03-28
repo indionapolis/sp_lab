@@ -5,8 +5,8 @@
 ├── backend
 │   ├── Dockerfile
 │   ├── app.py - sample web-server app
-│   ├── math_func.py - smple math functions
-│   ├── requirements.txt - requered pacages
+│   ├── math_func.py - sample math functions
+│   ├── requirements.txt - requered packages
 │   ├── static
 │   ├── student.py - sample Student class
 │   ├── templates
