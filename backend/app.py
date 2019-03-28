@@ -1,11 +1,14 @@
 from flask import Flask, request, Response
 from uuid import uuid1
 
+# sample flask server application
 app = Flask(__name__)
 
-USERS = {'valeriy':hash('val1212')}
+# set of registered users
+USERS = {'valeriy': hash('val1212')}
 
 
+# wrapper which restricts access to only defined user
 def authenticate(username, password):
     def wrap(f):
         def wrapper(*args, **kwargs):
@@ -22,6 +25,7 @@ def authenticate(username, password):
     return wrap
 
 
+# sample hello world endpoint
 @app.route('/', methods=['GET'])
 def hello_world(arg='doom'):
     if arg == 'doom':
@@ -29,6 +33,7 @@ def hello_world(arg='doom'):
     return 'Hello, World!'
 
 
+# sample login endpoint
 @app.route('/login', methods=['GET'])
 def login():
     auth = request.authorization
@@ -43,6 +48,7 @@ def login():
         return Response(status=400)
 
 
+# sample administrating endpoint
 @app.route('/secret_stuff')
 @authenticate('indionapolis', 'moscow1147')
 def secret_stuff():
@@ -51,4 +57,4 @@ def secret_stuff():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=5000)

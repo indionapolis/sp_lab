@@ -1,10 +1,65 @@
 import base64
 
 from app import app, hello_world
+from math_func import add, subtract, multiply, divide
+from student import Student
 import unittest
 
 
-class TestCase(unittest.TestCase):
+class MathTestCAse(unittest.TestCase):
+    def test_add(self):
+        self.assertEqual(add(3, 7), 10)
+
+    def test_subtract(self):
+        self.assertEqual(subtract(3, 7), -4)
+
+    def test_multiply(self):
+        self.assertEqual(multiply(3, 7), 21)
+
+    def test_divide(self):
+        self.assertEqual(divide(3, 7), 3 / 7)
+
+
+class StudentTestCase(unittest.TestCase):
+    def setUp(self):
+        self.student1 = Student('Pavel', 'Nikulin', 1234)
+        self.student2 = Student('Maxim', 'Averin', 36000)
+
+    def tearDown(self):
+        pass
+
+    def test_email(self):
+        self.assertEqual(self.student1.email, 'p.nikulin@innopolis.ru')
+        self.assertEqual(self.student2.email, 'm.averin@innopolis.ru')
+
+        self.student1.first = 'Dmitry'
+        self.student2.last = 'Smirnov'
+
+        self.assertEqual(self.student1.email, 'd.nikulin@innopolis.ru')
+        self.assertEqual(self.student2.email, 'm.smirnov@innopolis.ru')
+
+    def test_full_name(self):
+        self.assertEqual(self.student1.full_name, 'Pavel Nikulin')
+        self.assertEqual(self.student2.full_name, 'Maxim Averin')
+
+        self.student1.first = 'Dmitry'
+        self.student2.last = 'Smirnov'
+
+        self.assertEqual(self.student1.full_name, 'Dmitry Nikulin')
+        self.assertEqual(self.student2.full_name, 'Maxim Smirnov')
+
+    def test_is_in_36k_club(self):
+        self.assertFalse(self.student1.is_in_36k_club)
+        self.assertTrue(self.student2.is_in_36k_club)
+
+        self.student1.scholarship = 36000
+        self.student2.scholarship = 12000
+
+        self.assertTrue(self.student1.is_in_36k_club)
+        self.assertFalse(self.student2.is_in_36k_club)
+
+
+class ServerTestCase(unittest.TestCase):
     # executed prior to each test
     def setUp(self):
         app.config['TESTING'] = True
@@ -41,7 +96,6 @@ class TestCase(unittest.TestCase):
 
     def test_secret_stuff_page(self):
         valid_credentials = base64.b64encode(b'indionapolis:moscow1147').decode('utf-8')
-        print(valid_credentials)
         response = self.app.get('/secret_stuff', headers={'Authorization': 'Basic ' + valid_credentials})
         self.assertEqual(response.status_code, 200)
 
