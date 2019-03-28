@@ -41,7 +41,7 @@ def login():
     if auth:
         un = auth.username
         pw = auth.password
-        if un in USERS.keys() and USERS[un] == hashlib.sha256(pw).hexdigest():
+        if un in USERS.keys() and USERS[un] == hashlib.sha256(pw.encode()).hexdigest():
             return Response(headers={'uuid': str(uuid1())}, status=200)
         else:
             return Response(status=401)
