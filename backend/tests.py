@@ -1,6 +1,6 @@
 import base64
-
-from app import app, hello_world
+import hashlib
+from app import app, hello_world, USERS
 from math_func import add, subtract, multiply, divide
 from student import Student
 import unittest
@@ -81,6 +81,19 @@ class ServerTestCase(unittest.TestCase):
         self.assertEqual(hello_world('some'), 'Hello, World!')
         self.assertEqual(hello_world(), 'Hello, bloody world!')
         self.assertEqual(hello_world('doom'), 'Hello, bloody world!')
+
+    def test_registration_page(self):
+        valid_credentials = base64.b64encode(b'panddromas:Barselona1414').decode('utf-8')
+        response = self.app.post('/registration', headers={'Authorization': 'Basic ' + valid_credentials})
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(USERS['panddromas'], hashlib.sha256('Barselona1414'.encode()).hexdigest())
+
+        response = self.app.post('/registration')
+        self.assertEqual(response.status_code, 400)
+
+        response = self.app.get('/registration')
+        self.assertEqual(response.status_code, 405)
 
     def test_login_page(self):
         valid_credentials = base64.b64encode(b'valeriy:val1212').decode('utf-8')

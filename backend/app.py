@@ -1,11 +1,12 @@
 from flask import Flask, request, Response
 from uuid import uuid1
+import hashlib
 
 # sample flask server application
 app = Flask(__name__)
 
 # set of registered users
-USERS = {'valeriy': hash('val1212')}
+USERS = {'valeriy': hashlib.sha256('val1212'.encode()).hexdigest()}
 
 
 # wrapper which restricts access to only defined user
@@ -40,10 +41,23 @@ def login():
     if auth:
         un = auth.username
         pw = auth.password
-        if un in USERS.keys() and USERS[un] == hash(pw):
+        if un in USERS.keys() and USERS[un] == hashlib.sha256(pw).hexdigest():
             return Response(headers={'uuid': str(uuid1())}, status=200)
         else:
             return Response(status=401)
+    else:
+        return Response(status=400)
+
+
+# sample login endpoint
+@app.route('/registration', methods=['POST'])
+def registration():
+    auth = request.authorization
+    if auth:
+        un = auth.username
+        pw = auth.password
+        USERS[un] = hashlib.sha256(pw.encode()).hexdigest()
+        return Response(headers={'uuid': str(uuid1())}, status=201)
     else:
         return Response(status=400)
 
