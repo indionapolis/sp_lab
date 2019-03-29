@@ -1,7 +1,6 @@
 # Frontend
 
 ### Roadmap:
-
 ```
 ├── README.md
 ├── babel.config.js
@@ -22,6 +21,12 @@
     └── unit
         └── example.spec.js
 ```
+
+# HOWTO
+
+0. Install npm, then ``
+1. Run `npm install` while being in `frontend/` folder
+2. Run `npm test`
 
 # Useful links
 
