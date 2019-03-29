@@ -52,6 +52,8 @@
     "not ie <= 8"
   ],
   "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": ["**/*.{js,vue}", "!**/node_modules/**"],
     "moduleFileExtensions": [
       "js",
       "vue",

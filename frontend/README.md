@@ -32,7 +32,7 @@
 
 #### general
 * https://vue-test-utils.vuejs.org/guides/#getting-started
-
+* https://jestjs.io/ - jest framework for testing that we use
 #### user behavior events
 * https://vue-test-utils.vuejs.org/guides/#testing-key-mouse-and-other-dom-events
 
