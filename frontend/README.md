@@ -36,6 +36,9 @@
 #### user behavior events
 * https://vue-test-utils.vuejs.org/guides/#testing-key-mouse-and-other-dom-events
 
+#### pure js and html
+* https://dev.to/snowleo208/things-i-learned-after-writing-tests-for-js-and-html-page-4lja
+
 #### testing vuex
 * https://vue-test-utils.vuejs.org/guides/#testing-vuex-in-components
 
