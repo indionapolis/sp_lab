@@ -33,3 +33,6 @@
 
 #### testing vuex
 * https://vue-test-utils.vuejs.org/guides/#testing-vuex-in-components
+
+#### CI/CD with gitlab
+* https://about.gitlab.com/2017/09/12/vuejs-app-gitlab/
